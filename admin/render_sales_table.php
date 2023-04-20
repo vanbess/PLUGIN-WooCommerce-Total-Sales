@@ -27,7 +27,7 @@ function render_sales_table($sales_data) {
             <tr>
                 <!-- product ID -->
                 <th scope="col" class="manage-column column-ID sortable" data-sort="id" title="<?php _e('Click to sort by ID', 'sbwc-sales'); ?>">
-                    <?php _e('Producty ID', 'sbwc-sales'); ?>
+                    <?php _e('Product ID', 'sbwc-sales'); ?>
                 </th>
 
                 <!-- product Image -->
