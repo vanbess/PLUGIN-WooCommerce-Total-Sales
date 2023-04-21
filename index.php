@@ -3,7 +3,7 @@
 /**
  * Plugin Name:       SBWC Sales Report
  * Description:       Sales figures for products based on various selectable time periods
- * Version:           1.0.0
+ * Version:           1.0.1
  * Requires at least: 5.0
  * Requires PHP:      7.4
  * Author:            WC Bessinger
