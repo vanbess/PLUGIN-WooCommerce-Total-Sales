@@ -13,5 +13,7 @@
     - Time period dropdown
     - Table HTML inside which sales date is rendered
 
+- SKU column to data table for easier tracking
+
 ### Removed
 - Sales by country column for basic sales period tables

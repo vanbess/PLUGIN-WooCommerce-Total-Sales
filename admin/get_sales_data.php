@@ -26,6 +26,8 @@ function get_sales_data($period) {
             $start_date = date('Y-m-d h:i:s', strtotime('-1 day'));
             break;
     }
+
+    // define end date
     $end_date = date('Y-m-d h:i:s');
 
     // Query orders
@@ -75,17 +77,10 @@ function get_sales_data($period) {
     // if $order_ids not empty
     if (!empty($order_ids)) :
 
-        $countries_class = new WC_Countries();
-        $country_list    = $countries_class->get_countries();
-
         foreach ($order_ids as $order_id) :
 
             // get order object
             $order_data = wc_get_order($order_id);
-
-            // retrieve country name and push to $countries
-            $shipping_country = $order_data->get_shipping_country();
-            $country_name     = isset($country_list[$shipping_country]) ? $country_list[$shipping_country] : '';
 
             // get order products
             $order_products = $order_data->get_items();
@@ -109,26 +104,11 @@ function get_sales_data($period) {
                 $sold_qty   = intval($item->get_quantity());
 
                 if (isset($products_sales_data[$product_id])) :
-
                     $products_sales_data[$product_id]['total_qty'] += $sold_qty;
-
-                    if (!empty($country_name)) :
-                        if (isset($products_sales_data[$product_id][$country_name])) :
-                            $products_sales_data[$product_id][$country_name] += $sold_qty;
-                        else :
-                            $products_sales_data[$product_id][$country_name] = $sold_qty;
-                        endif;
-                    endif;
-
                 else :
-
                     $products_sales_data[$product_id] = array(
                         'total_qty' => $sold_qty,
                     );
-                    if (!empty($country_name)) :
-                        $products_sales_data[$product_id][$country_name] = $sold_qty;
-                    endif;
-
                 endif;
 
             endforeach;

@@ -3,8 +3,8 @@
 defined('ABSPATH') ?: exit();
 
 // include required function
-include __DIR__.'/get_sales_data.php';
-include __DIR__.'/render_sales_table.php';
+include __DIR__ . '/get_sales_data.php';
+include __DIR__ . '/render_sales_table.php';
 
 /**
  * Enqueue jQuery and tablesorter scripts
@@ -51,22 +51,30 @@ function sales_report_page() {
         <nav class="nav-tab-wrapper">
 
             <!-- last 24 hours -->
-            <a href="?page=sales-report&period=day" class="nav-tab <?php echo (isset($_GET['period']) && $_GET['period'] == 'day') ? 'nav-tab-active' : ''; ?>">
+            <a id="last_day_link" href="?page=sales-report&period=day" class="nav-tab <?php echo (isset($_GET['period']) && $_GET['period'] == 'day' && !isset($_GET['type'])) ? 'nav-tab-active' : ''; ?>">
                 <?php _e('Last 24 Hours', 'sbwc-sales'); ?>
             </a>
 
             <!-- last 7 days -->
-            <a href="?page=sales-report&period=week" class="nav-tab <?php echo (isset($_GET['period']) && $_GET['period'] == 'week') ? 'nav-tab-active' : ''; ?>">
+            <a id="last_week_link" href="?page=sales-report&period=week" class="nav-tab <?php echo (isset($_GET['period']) && $_GET['period'] == 'week' && !isset($_GET['type'])) ? 'nav-tab-active' : ''; ?>">
                 <?php _e('Last 7 Days', 'sbwc-sales'); ?>
             </a>
 
             <!-- last month -->
-            <a href="?page=sales-report&period=month" class="nav-tab <?php echo (isset($_GET['period']) && $_GET['period'] == 'month') ? 'nav-tab-active' : ''; ?>">
+            <a id="last_month_link" href="?page=sales-report&period=month" class="nav-tab <?php echo (isset($_GET['period']) && $_GET['period'] == 'month' && !isset($_GET['type'])) ? 'nav-tab-active' : ''; ?>">
                 <?php _e('Last Month', 'sbwc-sales'); ?>
+            </a>
+
+            <!-- per country -->
+            <a id="per_country_link" href="?page=sales-report&period=month&type=per_country" class="nav-tab <?php echo (isset($_GET['period']) && $_GET['period'] == 'month' && $_GET['type'] == 'per_country') ? 'nav-tab-active' : ''; ?>">
+                <?php _e('Per Country', 'sbwc-sales'); ?>
             </a>
         </nav>
 
         <?php
+
+        $country_data = [];
+
         // Get sales data based on selected period
         switch ($_GET['period']) {
             case 'day':
@@ -82,7 +90,7 @@ function sales_report_page() {
                 $sales_data = get_sales_data('last_day');
                 break;
         }
-        // Render the sales report table
+        // Render the sales report table (standard sales)
         render_sales_table($sales_data);
         ?>
     </div>
