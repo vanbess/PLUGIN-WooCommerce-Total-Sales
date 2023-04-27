@@ -3,53 +3,6 @@
 defined('ABSPATH') ?: exit();
 
 /**
- * Fetch and return complete customer order count based on customer email address
- *
- * @param string $customer_email - billing email for customer
- * @return void
- */
-function ts_query_customer_order_count_complete($customer_email) {
-
-    $customer_orders_args = array(
-        'post_type'      => 'shop_order',
-        'post_status'    => ['wc-completed', 'wc-processing'],
-        'meta_key'       => '_billing_email',
-        'meta_value'     => $customer_email,
-        'posts_per_page' => -1,
-    );
-
-    $customer_orders_query = new WP_Query($customer_orders_args);
-
-    return $customer_orders_query->post_count;
-}
-
-/**
- * Fetch and return customer order count for last month based on customer email address
- *
- * @param string $customer_email - billing email for customer
- * @return void
- */
-function ts_query_customer_order_count_last_month($customer_email) {
-
-    $customer_orders_args = array(
-        'post_type'      => 'shop_order',
-        'post_status'    => ['wc-completed', 'wc-processing'],
-        'meta_key'       => '_billing_email',
-        'meta_value'     => $customer_email,
-        'date_query'  => [
-            [
-                'after' => '30 days ago',
-            ],
-        ],
-        'posts_per_page' => -1,
-    );
-
-    $customer_orders_query = new WP_Query($customer_orders_args);
-
-    return $customer_orders_query->post_count;
-}
-
-/**
  * Renders table data related to return buyers (last month)
  *
  * @return void
