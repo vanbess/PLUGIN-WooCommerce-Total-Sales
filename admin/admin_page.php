@@ -69,6 +69,11 @@ function sales_report_page() {
             <a id="per_country_link" href="?page=sales-report&period=month&type=per_country" class="nav-tab <?php echo (isset($_GET['period']) && $_GET['period'] == 'month' && $_GET['type'] == 'per_country') ? 'nav-tab-active' : ''; ?>">
                 <?php _e('Per Country', 'sbwc-sales'); ?>
             </a>
+
+            <!-- Return buyers -->
+            <a id="per_country_link" href="?page=sales-report&period=month&type=return_buyers" class="nav-tab <?php echo (isset($_GET['period']) && $_GET['period'] == 'month' && $_GET['type'] == 'return_buyers') ? 'nav-tab-active' : ''; ?>">
+                <?php _e('Return Customer Data (past month)', 'sbwc-sales'); ?>
+            </a>
         </nav>
 
         <?php
