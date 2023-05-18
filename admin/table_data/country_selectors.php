@@ -24,7 +24,7 @@ function ts_render_country_selectors() {
             <select name="country" id="country">
                 <option value=""><?php _e('All', 'sbwc-sales'); ?></option>
                 <?php foreach ($country_list as $code => $country) : ?>
-                    <option value="<?php echo $code; ?>" <?php echo $_GET['country'] == $code ? 'selected' : '' ?>><?php echo $country; ?></option>
+                    <option value="<?php echo $country; ?>" <?php echo $_GET['country'] == $country ? 'selected' : '' ?>><?php echo $country; ?></option>
                 <?php endforeach; ?>
             </select>
 

@@ -21,10 +21,10 @@ function render_sales_table($sales_data) {
 
     // sort standard sales data from high to low
     uasort($sales_data, function ($a, $b) {
-        if ($a['total_qty'] == $b['total_qty']) {
+        if ($a['total_items_sold'] == $b['total_items_sold']) {
             return 0;
         }
-        return ($a['total_qty'] > $b['total_qty']) ? -1 : 1;
+        return ($a['total_items_sold'] > $b['total_items_sold']) ? -1 : 1;
     });
 
     // country based data filter dropdowns
@@ -64,10 +64,18 @@ function render_sales_table($sales_data) {
             elseif (isset($_GET['type']) && $_GET['type'] === 'per_country') :
 
                 // retrieve country based sales
-                $sales = sbwc_ts_return_country_orders();
+                $country_data = sbwc_ts_return_country_orders();
+
+                // sort standard sales data from high to low
+                uasort($country_data, function ($a, $b) {
+                    if ($a['total_items_sold'] == $b['total_items_sold']) {
+                        return 0;
+                    }
+                    return ($a['total_items_sold'] > $b['total_items_sold']) ? -1 : 1;
+                });
 
                 // render sales data
-                ts_table_data_country($sales);
+                ts_table_data_country($country_data);
 
                 /*******************
                  * Buyer based data
